@@ -1,4 +1,4 @@
-package com.example.conversordemoedas
+package com.example.conversormoeda
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

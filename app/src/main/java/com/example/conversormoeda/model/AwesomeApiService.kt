@@ -1,6 +1,5 @@
-package com.example.conversordemoedas.model
+package com.example.conversormoeda.model
 
-import com.example.conversordemoedas.model.ExchangeRate
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

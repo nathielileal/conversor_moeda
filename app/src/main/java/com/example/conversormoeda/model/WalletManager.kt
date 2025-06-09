@@ -1,4 +1,4 @@
-package com.example.conversordemoedas.model
+package com.example.conversormoeda.model
 
 object WalletManager {
     var balanceInBRL: Double = 0.0

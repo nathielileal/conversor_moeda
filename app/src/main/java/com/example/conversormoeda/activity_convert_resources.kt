@@ -1,12 +1,12 @@
-package com.example.conversordemoedas
+package com.example.conversormoeda
 
-import AwesomeApiService
+import com.example.conversormoeda.model.AwesomeApiService
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.conversordemoedas.model.WalletManager
+import com.example.conversormoeda.model.WalletManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -106,13 +106,20 @@ class activity_convert_resources : AppCompatActivity() {
                     .build()
 
                 val service = retrofit.create(AwesomeApiService::class.java)
-                val response = service.getExchangeRate("$from-$to").execute()
+                val response = service.getExchangeRate("$from$to").execute() // Note que concatenei sem "-"
                 if (response.isSuccessful) {
-                    response.body()?.values?.first()?.bid?.toDouble()
-                } else null
+                    val body = response.body()
+                    // A chave do map é a concatenação das moedas, ex: "USDBRL"
+                    val key = "$from$to"
+                    val rate = body?.get(key)?.bid?.toDoubleOrNull()
+                    rate
+                } else {
+                    null
+                }
             } catch (e: Exception) {
                 null
             }
         }
     }
+
 }

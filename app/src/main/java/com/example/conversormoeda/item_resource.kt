@@ -1,14 +1,13 @@
-package com.example.conversordemoedas
+package com.example.conversormoeda
 
 
-import android.R
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class item_resource : AppCompatActivity() {
+class ItemResource : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -1,4 +1,4 @@
-package com.example.conversordemoedas.model
+package com.example.conversormoeda.model
 
 data class ExchangeRate(
     val bid: String

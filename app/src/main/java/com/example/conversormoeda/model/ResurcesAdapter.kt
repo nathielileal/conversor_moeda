@@ -1,11 +1,11 @@
-package com.example.conversordemoedas.model
+package com.example.conversormoeda.model
 
-import android.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.conversormoeda.R
 
 class ResourcesAdapter(private val resourcesList: List<String>) :
     RecyclerView.Adapter<ResourcesAdapter.ResourcesViewHolder>() {
