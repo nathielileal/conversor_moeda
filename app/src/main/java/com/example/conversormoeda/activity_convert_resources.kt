@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.conversormoeda.model.WalletManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class activity_convert_resources : AppCompatActivity() {
+
     private lateinit var progressBar: ProgressBar
     private lateinit var tvBalance: TextView
     private lateinit var lvCurrencyBalances: ListView
@@ -21,7 +21,6 @@ class activity_convert_resources : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_convert_resources)
-
         val etAmount: EditText = findViewById(R.id.et_amount_to_convert)
         val spFromCurrency: Spinner = findViewById(R.id.sp_currency_from)
         val spToCurrency: Spinner = findViewById(R.id.sp_currency_to)
@@ -65,11 +64,19 @@ class activity_convert_resources : AppCompatActivity() {
     }
 
     private fun updateBalanceDisplay() {
-
-        val currencyBalances = WalletManager.currencies.entries.map { "${it.key}: ${it.value}" }
+        val currencyBalances = WalletManager.currencies.entries.map {
+            val formattedValue = if (it.key == "BTC") {
+                "%.4f".format(it.value)
+            } else {
+                "%.2f".format(it.value)
+            }
+            "${it.key}: $formattedValue"
+        }
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, currencyBalances)
         lvCurrencyBalances.adapter = adapter
     }
+
+
 
     private fun convertCurrency(from: String, to: String, amount: Double) {
         progressBar.visibility = View.VISIBLE
@@ -106,12 +113,13 @@ class activity_convert_resources : AppCompatActivity() {
                     .build()
 
                 val service = retrofit.create(AwesomeApiService::class.java)
-                val response = service.getExchangeRate("$from$to").execute() // Note que concatenei sem "-"
+                val pair = "$from-$to"
+                val response = service.getExchangeRate(pair).execute()
+
                 if (response.isSuccessful) {
                     val body = response.body()
-                    // A chave do map é a concatenação das moedas, ex: "USDBRL"
-                    val key = "$from$to"
-                    val rate = body?.get(key)?.bid?.toDoubleOrNull()
+                    val jsonKey = from + to
+                    val rate = body?.get(jsonKey)?.bid?.toDoubleOrNull()
                     rate
                 } else {
                     null
@@ -121,5 +129,11 @@ class activity_convert_resources : AppCompatActivity() {
             }
         }
     }
+
+
+
+
+
+
 
 }

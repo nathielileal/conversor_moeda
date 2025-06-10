@@ -1,10 +1,9 @@
-package com.example.conversormoeda.model
-
 object WalletManager {
-    public val currencies: MutableMap<String, Double> = mutableMapOf(
-        "USD" to 0.0,
-        "BTC" to 0.0,
-        "BRL" to 0.0
+
+    val currencies: MutableMap<String, Double> = mutableMapOf(
+        "BRL" to 100000.0,
+        "USD" to 50000.0,
+        "BTC" to 0.5,
     )
 
     var balanceInBRL: Double
@@ -14,8 +13,7 @@ object WalletManager {
         }
 
     fun addBalance(amount: Double) {
-        val newBalance = balanceInBRL + amount
-        balanceInBRL = newBalance
+        balanceInBRL += amount
     }
 
     fun updateCurrency(currency: String, amount: Double) {

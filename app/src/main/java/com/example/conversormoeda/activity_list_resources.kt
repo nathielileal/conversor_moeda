@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button
 import com.example.conversormoeda.model.ResourcesAdapter
-import com.example.conversormoeda.model.WalletManager
 
 class activity_list_resources : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
